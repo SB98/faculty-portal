@@ -1,0 +1,43 @@
+{%extends "base.html" %}
+{% block content %}
+
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<section style="padding-top:50px; ">
+    <div class="container">
+    	<div class="row">
+
+	   {% for faculty in faculties %}
+            <!--Profile Card 5-->
+            <div class="col-md-3 mt-3">
+                <div class="card profile-card-5">
+                    <div class="card-img-block">
+                       <img class="card-img-top" src="/static/{{faculty.image}}" alt="/static/{{faculty.image}}">
+                    </div>
+                    <div class="card-body pt-0">
+                        <h6 class="card-title">{{ faculty.faculty_name }}</h6>
+
+
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">{{ faculty.designation }}, {{faculty.department}}</li>
+                            <li class="list-group-item"><i class="fa fa-phone"></i><span>{{ faculty.phone }}</span></li>
+                            <li class="list-group-item"><a href="{% url 'facultydetails' faculty.faculty_id %}"
+                                                           class="btn btn-primary">View Profile</a></li>
+                        </ul>
+
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+                </div>
+    		</div>
+    	</div>
+    </div>
+
+<a id="back-to-top" href="#" class="btn btn-light btn-lg back-to-top" role="button" style="padding:6px;"><i class="fa fa-chevron-up"></i></a>
+</section>
+
+{% endblock %}

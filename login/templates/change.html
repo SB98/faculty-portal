@@ -1,0 +1,175 @@
+{%extends "base1.html" %}
+{% block content %}
+{% load static %}
+<!--<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>-->
+
+
+<!--<script src="{% static 'assets/js/bootstrap.min.js' %}"></script>-->
+<!--<script src="{% static 'assets/js/jquery-3.2.1.min.js' %}"></script>-->
+<!--<script-->
+<!--        src="https://code.jquery.com/jquery-3.4.1.js"-->
+<!--        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="-->
+<!--        crossorigin="anonymous"></script>-->
+<!--<script src="{% static 'js/jquery.bootstrap.modal.forms.js' %}"></script>-->
+<!--<section style="padding-top:50px">-->
+<!--<h1>Manage Password</h1>-->
+<!--{% if message%}-->
+<!--{{message}}-->
+<!--{% endif %}-->
+<!--<form action="/login/generate" method="POST">{% csrf_token %}-->
+<!--    <label for="faculty_id">Username</label>-->
+<!--    <input type="text" value="{{faculty_id}}" name="faculty_id" id="faculty_id" required>-->
+<!--    <input type="hidden" value="{{phone}}" name="phone">-->
+<!--    <button type="submit">Get OTP</button>-->
+<!--</form><br/>-->
+<!--{% if sent %}-->
+
+<!--OTP sent to: {{phone}} :-->
+<!--<form action="/login/verify" method="POST">{% csrf_token %}-->
+<!--    <label for="otp">OTP</label>-->
+<!--    <input type="text" name="otp" id="otp" required>-->
+<!--    <input type="hidden" value="{{phone}}" name="phone">-->
+<!--    <input type="hidden" value="{{faculty_id}}" name="faculty_id">-->
+<!--    <button type="submit">Verify</button>-->
+<!--</form>-->
+<!--{% endif %}-->
+
+
+<!-- Full Page Intro -->
+<div class="view full-page-intro"
+     style="background-image: url('https://png.pngtree.com/thumb_back/fw800/back_our/20190620/ourmid/pngtree-childhood-dreams-simple-fresh-black-education-poster-banner-image_152811.jpg'); background-repeat: no-repeat; background-size: cover;">
+
+    <!-- Mask & flexbox options-->
+    <div class="mask rgba-black-light d-flex justify-content-center align-items-center">
+
+        <!-- Content -->
+        <div class="container">
+
+            <!--Grid row-->
+            <div class="row wow fadeIn">
+
+                <!--Grid column-->
+                <!--          <div class="col-md-6 mb-4 white-text text-center text-md-left">-->
+
+                <!--            <h1 class="display-4 font-weight-bold">Learn Bootstrap 4 with MDB</h1>-->
+
+                <hr class="hr-light">
+
+                <!--            <p>-->
+                <!--              <strong>Best & free guide of responsive web design</strong>-->
+                <!--            </p>-->
+
+                <!--            <p class="mb-4 d-none d-md-block">-->
+                <!--              <strong>The most comprehensive tutorial for the Bootstrap 4. Loved by over 500 000 users. Video and written versions-->
+                <!--                available. Create your own, stunning website.</strong>-->
+                <!--            </p>-->
+
+                <!--            <a target="_blank" href="https://mdbootstrap.com/education/bootstrap/" class="btn btn-indigo btn-lg">Start free tutorial-->
+                <!--              <i class="fas fa-graduation-cap ml-2"></i>-->
+                <!--            </a>-->
+
+                <!--          </div>-->
+                <!--Grid column-->
+
+                <!--Grid column-->
+                <div class="col-md-6 col-xl-5 mb-4">
+
+                    <!--Card-->
+                    <div class="card">
+
+                        <!--Card content-->
+                        <div class="card-body">
+
+                            <!-- Form -->
+                            <form action="/login/generate" method="POST">{% csrf_token %}
+                                <!-- Heading -->
+                                <h3 class="dark-grey-text text-center">
+                                    <strong>Manage Password</strong>
+                                </h3>
+                                <hr>
+
+                                <div class="d-flex justify-content-between">
+                                    <div class="md-form">
+                                        <input type="text" value="{{faculty_id}}" name="faculty_id" id="faculty_id"
+                                               class="form-control"
+                                               required>
+                                        <label for="faculty_id">Username</label>
+                                    </div>
+
+
+                                    <input type="hidden" value="{{phone}}" name="phone">
+                                    <div class="text-center">
+                                        <button class="btn btn-indigo" type="submit">Get OTP</button>
+
+                                        <hr>
+                                    </div>
+                                </div>
+                            </form>
+
+                            {% if sent %}
+
+                            OTP sent to: {{phone}} :
+
+
+                            <form action="/login/verify" method="POST">{% csrf_token %}
+                                <div class="d-flex justify-content-between">
+                                    <div class="md-form">
+                                        <input type="text" name="otp" id="otp"
+                                               class="form-control"
+                                               required>
+                                        <label for="otp">OTP</label>
+
+                                    </div>
+
+                                    <input type="hidden" value="{{phone}}" name="phone">
+
+                                    <input type="hidden" value="{{faculty_id}}" name="faculty_id">
+
+                                    <div class="text-center">
+                                        <button class="btn btn-indigo" type="submit">Verify</button>
+
+                                        <hr>
+                                    </div>
+                                </div>
+                            </form>
+                            {% endif %}
+                            <div class="options text-center text-md-right mt-1">
+
+                                <p> {% if message%}
+                                    {{message}}
+                                    {% endif %}</p>
+                            </div>
+                            <!--              <button type="button" class="btn btn-outline-info waves-effect ml-auto" data-dismiss="modal">Close</button>-->
+
+
+                            <!-- Form -->
+                            <!--<div class="text-center">-->
+                            <!--                   <form action="/login/change" method="POST" >{% csrf_token %}-->
+                            <!--          <button class="btn btn-indigo" type="submit" x>Generate/Change password</button>-->
+                            <!--        </form>-->
+                            <!--</div>-->
+
+                        </div>
+
+                    </div>
+                    <!--/.Card-->
+
+                </div>
+                <!--Grid column-->
+
+            </div>
+            <!--Grid row-->
+
+        </div>
+        <!-- Content -->
+
+    </div>
+    <!-- Mask & flexbox options-->
+
+</div>
+<!--End of login form-->
+
+
+<!--</section>-->
+
+{% endblock %}

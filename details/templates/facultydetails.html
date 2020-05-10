@@ -1,0 +1,714 @@
+{%extends "base.html" %}
+{% block content %}
+{% include "_modal.html" %}
+{% block extra_js%}
+{% endblock %}
+{% load static %}
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+
+<script src="{% static 'assets/css/newstyle.css' %}"></script>
+<script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'assets/js/jquery-3.2.1.min.js' %}"></script>
+<script
+        src="https://code.jquery.com/jquery-3.4.1.js"
+        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+        crossorigin="anonymous"></script>
+<script src="{% static 'js/jquery.bootstrap.modal.forms.js' %}"></script>
+<!-- You can alternatively load the minified version -->
+<script src="{% static 'js/jquery.bootstrap.modal.forms.min.js' %}"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'assets/css/newstyle.css' %}"/>
+
+
+<style>
+
+    .card.chat-room .members-panel-1,
+.card.chat-room .chat-1 {
+position: relative;
+overflow-y: scroll; }
+
+.card.chat-room .members-panel-1 {
+height: 570px; }
+
+.card.chat-room .chat-1 {
+height: 495px; }
+
+.card.chat-room .friend-list li {
+border-bottom: 1px solid #e0e0e0; }
+.card.chat-room .friend-list li:last-of-type {
+border-bottom: none; }
+
+.scrollbar-light-blue::-webkit-scrollbar-track {
+-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+background-color: #F5F5F5;
+border-radius: 10px; }
+
+.scrollbar-light-blue::-webkit-scrollbar {
+width: 12px;
+background-color: #F5F5F5; }
+
+.scrollbar-light-blue::-webkit-scrollbar-thumb {
+border-radius: 10px;
+-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+background-color: #82B1FF; }
+
+.rare-wind-gradient {
+background-image: -webkit-gradient(linear, left bottom, left top, from(#a8edea), to(#fed6e3));
+background-image: -webkit-linear-gradient(bottom, #a8edea 0%, #fed6e3 100%);
+background-image: linear-gradient(to top, #a8edea 0%, #fed6e3 100%); }
+
+
+
+
+
+
+</style>
+
+
+<div style="padding-top:30px;">
+
+    <div class="row">
+
+        <div class="col-md-2">
+            {% if request.user.is_authenticated %}
+
+            <div aria-live="assertive" aria-atomic="true" data-autohide="false">
+
+                <div class="toast-body">
+                    ...
+                </div>
+            </div>
+
+            <div></div>
+            <div class="text-center">
+                <h5>Today's Tasks</h5></div>
+
+            {% for notification in notificationArr %}
+            <div aria-live="assertive" aria-atomic="true" data-autohide="false">
+                <div class="card">
+                    <div class="card-body">
+                        {{notification.title}}
+                    </div>
+                </div>
+            </div>
+
+            {% endfor %}
+            {% endif %}
+
+        </div>
+
+
+        <div class="col-md-7">
+
+            <section>
+
+                <!--PROFILE SECTION-->
+                <div class="card mb-3">
+                    <img src="{% static 'images/background.jpg'%}" class="card-img-top" height="230">
+                    <!--<div class="pv-top-card&#45;&#45;photo">-->
+                    <!--<img src='/static/{{faculty.image}}' alt='/static/{{faculty.image}}'  class="rounded-circle "-->
+                    <!--width="150" height="150">-->
+                    <!--{% if faculty.faculty_id == login_faculty_id %}-->
+
+                    <!--<form method="post" action="/polls/changeImage" enctype="multipart/form-data">{% csrf_token %}-->
+                    <!--<br/>-->
+                    <!--<input type="hidden" name="faculty_id" value="{{faculty.faculty_id}}" >-->
+                    <!--<input type="file" accept="image/*" name="profile"/>-->
+                    <!--<button type="submit" class="btn btn-2" title="Upload">Upload</button>-->
+                    <!--</form>-->
+                    <!--<span>-->
+                    <!--<form method="post" action="/polls/deleteImage" enctype="multipart/form-data">{% csrf_token %}-->
+                    <!--<input type="hidden" name="faculty_id" value="{{faculty.faculty_id}}" >-->
+                    <!--<button type="submit" class="btn btn-2">Delete</button>-->
+                    <!--</form>-->
+                    <!--</span>-->
+                    <!--{% endif %}-->
+                    <!--</div>-->
+
+                    <div class="d-flex justify-content-left">
+                        <div class="pv-top-card--photo"><img src='/static/{{faculty.image}}'
+                                                             alt='/static/{{faculty.image}}' class="rounded-circle "
+                                                             width="150" height="150"></div>
+
+
+                        {% if faculty.faculty_id == login_faculty_id %}
+                        <form method="post" action="/polls/changeImage" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <input type="hidden" name="faculty_id" value="{{faculty.faculty_id}}" width="1">
+                            <input type="file" accept="image/*" src="img_submit.gif" name="profile" value="" width="1"/>
+
+                            <button type="submit" class="btn btn-link  btn-2" style="padding:0;"><span
+                                    class="fa fa-pencil"></span> Save
+                            </button>
+                        </form>
+                        {% endif %}
+
+                        <br/>
+                        <div>
+                            {% if faculty.faculty_id == login_faculty_id %}
+                            <form method="post" action="/polls/deleteImage" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <input type="hidden" name="faculty_id" value="{{faculty.faculty_id}}" width="1">
+
+                                <button type="submit" class="btn btn-link  btn-2" style="padding:0;"><span
+                                        class="fa fa-trash"></span>Delete
+                                </button>
+                            </form>
+
+                            {% endif %}
+                        </div>
+                        <div></div>
+                    </div>
+
+
+                    <div class="card-body">
+                        <h5 class="card-title">{{faculty.faculty_name}}</h5>
+                        <div class="d-flex justify-content-between">
+                            <h6 class="card-text">{{faculty.designation}}, {{faculty.department}} </h6>
+                            <h6 class="card-text"><i class="fa fa-phone"></i><span>&nbsp;{{faculty.phone}}</span>
+                            </h6>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <h6 class="card-text">{% if latest_qualification %}
+                                {{latest_qualification.degree}}
+                                ({{latest_qualification.field}}),
+                                {{latest_qualification.institute}}
+                                {% endif %}
+                            </h6>
+                            <h6 class="card-text"><i
+                                    class="fa fa-envelope-o"></i><span>&nbsp;{{faculty.email}}</span>
+                            </h6>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <h6 class="card-text">{{faculty.faculty_id}}</h6>
+                            <h6 class="card-text">{{faculty.office}}</h6>
+                        </div>
+                        <!--<p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>-->
+                    </div>
+                </div>
+
+
+                <!--ABOUT SECTION -->
+                {% if faculty.biography or faculty.faculty_id == login_faculty_id %}
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">About</h5>
+                        <div class="d-flex justify-content-between">
+                            <p class="card text">{% if faculty.biography %}{{faculty.biography}} {% else %} <h6>
+                            Describe
+                            yourself! {% endif %}</h6></p>
+
+                            {% if faculty.faculty_id == login_faculty_id %}
+                            <button type="button" class="update-about btn btn-sm btn-link crud"
+                                    data-id="{% url 'update_about' faculty_id=faculty.faculty_id pk=faculty.pk %}"
+                                    title="">
+                                <span class="fa fa-pencil"></span>
+                            </button>
+                            {% endif %}
+
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+
+                <!--Qualification SECTION-->
+                {% if qualifications or faculty.faculty_id == login_faculty_id %}
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <h5 class="card-title">Qualification</h5>
+
+                            <div class="modal fade" tabindex="-1" role="dialog" id="modal">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Create qualification button -->
+                            {% if faculty.faculty_id == login_faculty_id %}
+                            <button class="create-qualification btn btn-link crud" type="button" name="button"
+                                    style="background-color: #FFFFFF; color: black; border: 0px solid #FFFFFF;"><span
+                                    class="fa fa-plus"></span></button>
+                            {% endif %}
+                            <!--            class="pv-profile-section__header-add-action add-position artdeco-button artdeco-button&#45;&#45;tertiary artdeco-button&#45;&#45;circle ember-view"-->
+                            <!-- <button class="create_qualification btn btn-primary submit-btn" type="button" name="button">-->
+                            <!--              <span class="fa fa-plus mr-2"></span></button>-->
+                        </div>
+
+                        {% if qualifications %}
+
+                        <ul class="list-group list-group-flush">
+                            {% for qualification in qualifications %}
+
+                            <div class="d-flex justify-content-between">
+                                <li class="list-group-item">
+                                    <h6 class="card-text">{{qualification.degree}},{{qualification.field}}</h6>
+                                    <p class="card-text">{{qualification.institute}}</p>
+                                    <p class="card-text">{{qualification.from_year}}-{{qualification.to_year}}</p>
+                                </li>
+                                {% if faculty.faculty_id == login_faculty_id %}
+                                <div>
+                                    <button type="button" class="update-qualification btn btn-sm btn-link crud"
+                                            style="background-color: #FFFFFF; color: black; border: 0px solid #FFFFFF;"
+                                            data-id="{% url 'update_qualification' faculty_id=faculty.faculty_id  pk=qualification.pk %}">
+                                        <span class="fa fa-pencil"></span>
+                                    </button>
+                                    <span>
+                                        <!-- Delete buttons -->
+                                    <button type="button" class="delete-qualification btn btn-sm btn-link"
+                                            style="background-color: #FFFFFF; color: red; border: 0px solid #FFFFFF;"
+                                            data-id="{% url 'delete_qualification' qualification.pk %}">
+                                        <span class="fa fa-trash"></span>
+                                    </button>
+                                    </span>
+                                </div>
+                                {% endif %}
+                            </div>
+
+                            {% endfor %}
+                        </ul>
+
+
+                        {% else %} <h6>Add your Educational Details!</h6> {% endif %}
+
+                    </div>
+
+
+                </div>
+                {% endif %}
+
+                <!--Experience SECTION-->
+                {% if organizations or faculty.faculty_id == login_faculty_id %}
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <h5 class="card-title">Experience</h5>
+                            {% if faculty.faculty_id == login_faculty_id %}
+                            <button class="create-organization btn btn-link crud" type="button" name="button"
+                                    style="background-color: #FFFFFF; color: black; border: 0px solid #FFFFFF;"><span
+                                    class="fa fa-plus"></span></button>
+                            {% endif %}
+                        </div>
+
+                        {% if organizations %}
+                        <ul class="list-group list-group-flush">
+                            {% for exp in organizations %}
+                            <div class="d-flex justify-content-between">
+                                <li class="list-group-item">
+                                    <h6 class="card-text">{{exp.organization_name}},{{exp.location}}</h6>
+                                    <p class="card-text">{{exp.position}}</p>
+                                    <p class="card-text">{{exp.from_year}}-{{exp.to_year}}</p>
+                                    <p class=card-text">{{exp.description}}</p>
+                                </li>
+                                {% if faculty.faculty_id == login_faculty_id %}
+                                <div>
+                                    <!--update-->
+                                    <button type="button" class="update-organization btn btn-sm btn-link crud"
+                                            style="background-color: #FFFFFF; color: black; border: 0px solid #FFFFFF;"
+                                            data-id="{% url 'update_organization' faculty_id=faculty.faculty_id  pk=exp.pk %}">
+                                        <span class="fa fa-pencil"></span>
+                                    </button>
+                                    <span>
+                                        <!-- Delete buttons -->
+                                    <button type="button" class="delete-organization btn btn-sm btn-link"
+                                            style="background-color: #FFFFFF; color: black; border: 0px solid #FFFFFF;"
+                                            data-id="{% url 'delete_organization' exp.pk %}">
+                                        <span class="fa fa-trash"></span>
+                                    </button>
+                                    </span>
+                                </div>
+                                {% endif %}
+                            </div>
+
+                            {% endfor %}
+                        </ul>
+                        {% else %}<h6> Add your Experience!</h6> {% endif %}
+                    </div>
+                </div>
+                {% endif %}
+
+                <!--Accomplishments SECTION-->
+                {% if awards or publications or certifications or faculty.faculty_id == login_faculty_id %}
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <h5 class="card-title">Accomplishments</h5>
+
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <!--Awards SECTION-->
+                            {% if awards or faculty.faculty_id == login_faculty_id %}
+
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between">
+                                    <h6 class="card-title">Awards</h6>
+
+
+                                    <!-- Create qualification button -->
+                                    {% if faculty.faculty_id == login_faculty_id %}
+                                    <button class="create-award btn btn-link crud" type="button" name="button"
+                                            style="background-color: #FFFFFF; color: black; border: 0px solid #FFFFFF;"><span
+                                            class="fa fa-plus"></span></button>
+                                    {% endif %}
+                                    <!--            class="pv-profile-section__header-add-action add-position artdeco-button artdeco-button&#45;&#45;tertiary artdeco-button&#45;&#45;circle ember-view"-->
+                                    <!-- <button class="create_qualification btn btn-primary submit-btn" type="button" name="button">-->
+                                    <!--              <span class="fa fa-plus mr-2"></span></button>-->
+                                </div>
+
+                                {% if awards %}
+
+                                <ul class="list-group list-group-flush">
+                                    {% for award in awards %}
+
+                                    <div class="d-flex justify-content-between">
+                                        <li class="list-group-item">
+                                            <p class="card-text"> {{award.title}}</p>
+                                            <p class="card-text"> {{award.issuer}}</p>
+                                            <p class="card-text"> {{award.issue_date}}</p>
+                                            <p class="card-text"> {{award.description}} </p>
+                                            <!--                                        <h6 class="card-text">{{qualification.degree}},{{qualification.field}}</h6>-->
+                                            <!--                                        <p class="card-text">{{qualification.institute}}</p>-->
+                                            <!--                                        <p class="card-text">{{qualification.from_year}}-{{qualification.to_year}}</p>-->
+                                        </li>
+                                        {% if faculty.faculty_id == login_faculty_id %}
+                                        <div>
+                                            <button type="button" class="update-award btn btn-sm btn-link crud"
+                                                    style="background-color: #FFFFFF; color: black; border: 0px solid #FFFFFF;"
+                                                    data-id="{% url 'update_award' faculty_id=faculty.faculty_id  pk=award.pk %}">
+                                                <span class="fa fa-pencil"></span>
+                                            </button>
+                                            <span>
+                                        <!-- Delete buttons -->
+                                    <button type="button" class="delete-award btn btn-sm btn-link"
+                                            style="background-color: #FFFFFF; color: black; border: 0px solid #FFFFFF;"
+                                            data-id="{% url 'delete_award' award.pk %}">
+                                        <span class="fa fa-trash"></span>
+                                    </button>
+                                    </span>
+                                        </div>
+                                        {% endif %}
+                                    </div>
+
+                                    {% endfor %}
+                                </ul>
+
+
+                                {% else %} <h6>Add Awards</h6> {% endif %}
+
+                            </div>
+
+
+                            {% endif %}
+
+                            {% if publications or faculty.faculty_id == login_faculty_id %}
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between">
+                                    <h6 class="card-title">Publications</h6>
+
+                                    {% if faculty.faculty_id == login_faculty_id %}
+                                    <button class="create-publication btn btn-link crud" type="button"
+                                            name="button"
+                                            style="background-color: #FFFFFF; color: black; border: 0px solid #FFFFFF;"><span
+                                            class="fa fa-plus"></span></button>
+                                    {% endif %}
+                                </div>
+
+                                {% if publications %}
+                                <ul class="list-group list-group-flush">
+                                    {% for publication in publications %}
+                                    <div class="d-flex justify-content-between">
+                                        <li class="list-group-item">
+                                            <p class="card-text"> {{publication.title}} </p>
+                                            <p class="card-text"> {{publication.publisher}} </p>
+                                            <p class="card-text"> {{publication.description}} </p>
+                                            <p class="card-text"> {{publication.publication_date}} </p>
+                                            <p class="card-text"> {{publication.publication_url}} </p>
+                                        </li>
+                                        {% if faculty.faculty_id == login_faculty_id %}
+                                        <div>
+                                            <!--update-->
+                                            <button type="button"
+                                                    class="update-publication btn btn-sm btn-link crud"
+                                                    style="background-color: #FFFFFF; color: black; border: 0px solid #FFFFFF;"
+                                                    data-id="{% url 'update_publication'  faculty_id=faculty.faculty_id  pk=publication.pk %}">
+                                                <span class="fa fa-pencil"></span>
+                                            </button>
+                                            <span>
+                                        <!-- Delete buttons -->
+                                    <button type="button" class="delete-publication btn btn-sm btn-link"
+                                            style="background-color: #FFFFFF; color: black; border: 0px solid #FFFFFF;"
+                                            data-id="{% url 'delete_publication' publication.pk %}">
+                                        <span class="fa fa-trash"></span>
+                                    </button>
+                                    </span>
+                                        </div>
+                                        {% endif %}
+                                    </div>
+
+                                    {% endfor %}
+                                </ul>
+                                {% else %}
+                                <h6>Add Publications</h6>
+                                {% endif %}
+                            </div>
+                            {% endif %}
+                            {% if certifications or faculty.faculty_id == login_faculty_id %}
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between">
+                                    <h6 class="card-title">Certifications</h6>
+
+                                    {% if faculty.faculty_id == login_faculty_id %}
+                                    <button class="create-certification btn btn-link crud" type="button"
+                                            name="button"
+                                            style="background-color: #FFFFFF; color: black; border: 0px solid #FFFFFF;"><span
+                                            class="fa fa-plus"></span></button>
+                                    {% endif %}
+                                </div>
+                                {% if certifications %}
+                                <ul class="list-inline">
+                                    {% for certification in certifications %}
+                                    <div class="d-flex justify-content-between">
+                                        <li class="list-group-item">
+                                            <p class="card-text"> {{certification.credential_title}} </p>
+                                            <p class="card-text"> {{certification.credential_id}} </p>
+                                            <p class="card-text"> {{certification.credential_url}} </p>
+                                            <p class="card-text"> {{certification.issue_date}} </p>
+                                            <p class="card-text"> {% if certification.expiry_date %}
+                                                {{certification.expiry_date}} {% else %} No Expiry {% endif %}</p>
+                                        </li>
+                                        <div>
+                                            <!--update-->
+                                            <button type="button"
+                                                    class="update-certification btn btn-sm btn-link crud"
+                                                    style="background-color: #FFFFFF; color: black; border: 0px solid #FFFFFF;"
+                                                    data-id="{% url 'update_certification'  faculty_id=faculty.faculty_id  pk=certification.pk %}">
+                                                <span class="fa fa-pencil"></span>
+                                            </button>
+                                            <span>
+                                        <!-- Delete buttons -->
+                                    <button type="button" class="delete-certification btn btn-sm btn-link"
+                                            style="background-color: #FFFFFF; color: black; border: 0px solid #FFFFFF;"
+                                            data-id="{% url 'delete_certification' certification.pk %}">
+                                        <span class="fa fa-trash"></span>
+                                    </button>
+                                    </span>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </ul>
+                                {% else %}
+                                <h6>Add Certifications</h6>
+                                {% endif %}
+                            </div>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+                {% endif %}
+
+                <!--teaching intereest section-->
+                {% if faculty.teaching_interests or faculty.faculty_id == login_faculty_id %}
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <h5 class="card-title">Teaching Interests</h5>
+
+                            <!--update-->
+                            {% if faculty.faculty_id == login_faculty_id %}
+                            <button type="button" class="update-teachinginterest btn btn-sm btn-link crud"
+                                    data-id="{% url 'update_teachinginterest' faculty_id=faculty.faculty_id pk=faculty.pk %}">
+                                <span class="fa fa-pencil"></span>
+                            </button>
+                            {% endif %}
+                        </div>
+                        {% if faculty.teaching_interests %}
+                        {% for teaching_interest in faculty.teaching_interests %}
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <h6 class="card-text">{{teaching_interest.topic_name}}</h6>
+                            </li>
+                        </ul>
+                        {% endfor %}
+                        {% else %}
+                        <h6>Add Teaching Interests</h6>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endif %}
+                <!--Specializations SECTION-->
+                {% if faculty.specializations or faculty.faculty_id == login_faculty_id %}
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <h5 class="card-title">Specializations</h5>
+                            <!--update-->
+                            {% if faculty.faculty_id == login_faculty_id %}
+                            <button type="button" class="update-specialization btn btn-sm btn-link crud"
+                                    data-id="{% url 'update_specialization' faculty_id=faculty.faculty_id pk=faculty.pk %}">
+                                <span class="fa fa-pencil"></span>
+                            </button>
+                            {% endif %}
+                        </div>
+                        {% if faculty.specializations %}
+                        {% for specialization in faculty.specializations %}
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <h6 class="card-text">{{specialization.topic_name}}</h6>
+                            </li>
+                        </ul>
+                        {% endfor %}
+                        {% else %}
+                        <h6>Add Specializations</h6>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endif %}
+
+
+                <a id="back-to-top" href="#" class="btn btn-light btn-lg back-to-top" role="button"
+                   style="padding:6px;"><i
+                        class="fa fa-chevron-up"></i></a>
+            </section>
+
+        </div>
+
+
+        <!-- Grid column -->
+        <div class="col-md-3">
+            {% if request.user.is_authenticated %}
+            <h6 class="font-weight-bold mb-3 text-center text-lg-left">Member</h6>
+            <div class="white z-depth-1 px-2 pt-3 pb-0 members-panel-1 scrollbar-light-blue">
+                <ul class="list-unstyled friend-list">
+
+                    {% for faculty1 in faculties %}
+                    {% for user in users %}
+                    {% if user.username == faculty1.faculty_id %}
+                    <li class="p-2">
+                        <a href="/chat/{{sid}}/{{user.id}}" class="d-flex justify-content-between">
+                            <img src="/static/{{faculty1.image}}" alt="avatar" width="40"
+                                 class="avatar rounded-circle d-flex align-self-center mr-2 z-depth-1">
+                            <div class="text-small">
+                                <strong>{{faculty1.faculty_name}}</strong>
+                                {% for latest_msg in latest_msgs %}
+                                {% if latest_msg.sender_id == user.id %}
+                                {% if latest_msg.message is not None %}
+                                <p class="last-message text-muted">{{latest_msg.message}}</p>
+                                {% else %}
+                                <p class="last-message text-muted">Start New Chat</p>
+                                {% endif %}
+                                {% endif %}
+                                {% endfor %}
+                            </div>
+                            <div class="chat-footer">
+                                <!--                   <p class="text-smaller text-muted mb-0">5 min ago</p> -->
+                                <span class="text-muted float-right"><i class="fa fa-mail-reply" aria-hidden="true"></i></span>
+                            </div>
+                        </a>
+                    </li>
+                    {% endif %}
+                    {% endfor %}
+                    {% endfor %}
+
+                </ul>
+            </div>
+        {% endif %}
+        </div>
+        <!-- Grid column -->
+
+
+    </div>
+</div>
+{% endblock %}
+
+
+<!--      $(".login-btn").modalForm({formURL: "{% url 'login' %}"});-->
+<!--  $(".signup-btn").modalForm({formURL: "{% url 'signup' %}"});-->
+{% block extrascripts %}
+<script type="text/javascript">
+    $(function () {
+      // Log in & Sign up buttons
+      // Create button
+      $(".create-qualification").modalForm({formURL: "{% url 'create_qualification'  faculty.faculty_id %}", modalID: "#create-modal"});
+      $(".create-organization").modalForm({formURL: "{% url 'create_organization' faculty.faculty_id %}", modalID: "#create-modal"});
+      $(".create-award").modalForm({formURL: "{% url 'create_award' faculty.faculty_id %}", modalID: "#create-modal"});
+      $(".create-publication").modalForm({formURL: "{% url 'create_publication' faculty.faculty_id %}", modalID: "#create-modal"});
+      $(".create-certification").modalForm({formURL: "{% url 'create_certification' faculty.faculty_id %}", modalID: "#create-modal"});
+
+
+      // Update book buttons
+      $(".update-qualification").each(function () {
+        $(this).modalForm({formURL: $(this).data('id')});
+      });
+      $(".update-organization").each(function () {
+        $(this).modalForm({formURL: $(this).data('id')});
+      });
+      $(".update-about").each(function () {
+        $(this).modalForm({formURL: $(this).data('id')});
+      });
+      $(".update-teachinginterest").each(function () {
+        $(this).modalForm({formURL: $(this).data('id')});
+      });
+      $(".update-certification").each(function () {
+        $(this).modalForm({formURL: $(this).data('id')});
+      });
+      $(".update-specialization").each(function () {
+        $(this).modalForm({formURL: $(this).data('id')});
+      });
+       $(".update-award").each(function () {
+        $(this).modalForm({formURL: $(this).data('id')});
+      });
+       $(".update-publication").each(function () {
+        $(this).modalForm({formURL: $(this).data('id')});
+      });
+
+
+       // Delete  buttons
+      $(".delete-qualification").each(function () {
+        $(this).modalForm({formURL: $(this).data('id')});
+      })
+      $(".delete-organization").each(function () {
+        $(this).modalForm({formURL: $(this).data('id')});
+      })
+      $(".delete-certification").each(function () {
+        $(this).modalForm({formURL: $(this).data('id')});
+      })
+      $(".delete-award").each(function () {
+        $(this).modalForm({formURL: $(this).data('id')});
+      })
+      $(".delete-publication").each(function () {
+        $(this).modalForm({formURL: $(this).data('id')});
+      })
+
+
+
+
+
+
+       // Update book buttons
+
+
+      // Read book buttons
+      $(".read-qualification").each(function () {
+        $(this).modalForm({formURL: $(this).data('id')});
+      });
+
+      // Delete book buttons
+      $(".delete-qualification").each(function () {
+        $(this).modalForm({formURL: $(this).data('id')});
+      })
+
+      // Hide message
+      $(".alert").fadeTo(2000, 500).slideUp(500, function(){
+        $(".alert").slideUp(500);
+      });
+
+    });
+
+
+
+
+
+</script>
+{% endblock extrascripts %}

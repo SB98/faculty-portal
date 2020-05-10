@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% load static %}
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="{% static 'assets/js/bootstrap.js' %}"></script>
+    <script src="{% static 'assets/js/jquery.js' %}"></script>
+    <script src="{% static 'js/jquery.bootstrap.modal.forms.js' %}"></script>
+    <!-- You can alternatively load the minified version -->
+    <script src="{% static 'js/jquery.bootstrap.modal.forms.min.js' %}"></script>
+<!--{% if form.errors %}-->
+<!--<p class="error"> Invalid Student info </p>-->
+<!--{% endif %}-->
+<!--<form action="/firstdb/addstudentinfo/" method = "post">{% csrf_token %}-->
+<!--<label for="studentname">Student Name : </label>-->
+<!--<input type="text" name = "studentname" value = "" id="studentname">-->
+<!--<label for="birthdate"> Birth Date:</label>-->
+<!--<input type="date" name="birthdate" value="" id="birthdate">-->
+<!--<input type="submit" value="Enter"/>-->
+<!--</form>-->
+<!--<p> Click <a href="/firstdb/students/"></a> to view student records. </p>-->
+
+
+
+<div class="carousel slide" data-ride="carousel" id="carouselExampleSlidesOnly">
+<div class="carousel-inner" role="listbox">
+    <div class="carousel-item active">
+        <form class="form-horizontal" style="width:50%;"  action="/polls/addinfo/" method = "post">{% csrf_token %}
+            <fieldset>
+                <!-- Form Name -->
+                <legend>Form Name</legend> <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="organization_name">Organization</label>
+                    <div class="col-md-4">
+                        <input class="form-control input-md" id="organization_name" name="organization_name" placeholder="Organization" type="text">
+                    </div>
+                </div><!-- Password input-->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="position">Password</label>
+                    <div class="col-md-4">
+                        <input class="form-control input-md" id="position" name="position" placeholder="Position" type="text">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="submit">Password</label>
+                    <div class="col-md-4">
+                        <input class="form-control input-md" id="submit"  type="submit" value="Save">
+                    </div>
+                </div>
+
+
+            </fieldset>
+        </form>
+    </div>
+    <div class="carousel-item"><img alt="Second slide" class="d-block img-fluid" src="..."></div>
+    <div class="carousel-item"><img alt="Third slide" class="d-block img-fluid" src="..."></div>
+</div>
+</div>
+
+{% endblock %}
